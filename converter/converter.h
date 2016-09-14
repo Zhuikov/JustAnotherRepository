@@ -24,20 +24,20 @@ class Converter
         { 'E', 14 },
         { 'F', 15 }
     };
+    char getKey(int value) const;
 
     int radixFrom = 0;
     int radixTo = 0;
 
-    std::string integerPart = 0;
-    std::string fractionalPart = 0;
+    std::string integerPart = "";
+    std::string fractionalPart = "";
 
     std::string convertIntegerPart();
     std::string convertFractionalPart();
 
 public:
-
-    Converter();
-    std::string convert(std::string initialNumber, int radixFrom, int radixTo);
+    Converter() {}
+    std::string convert(const std::string initialNumber, const int radixFrom, const int radixTo);
 };
 
 #endif // CONVERTER_H

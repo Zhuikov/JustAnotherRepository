@@ -1,9 +1,11 @@
 #include <iostream>
+#include "converter.h"
 
-using namespace std;
-
-int main(int argc, char *argv[])
+int main()
 {
-    cout << "Hello World!" << endl;
+    Converter converter;
+
+    std::cout << converter.convert("ABCD33", 16, 2) << std::endl;
+
     return 0;
 }
