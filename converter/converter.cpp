@@ -23,6 +23,7 @@ std::string Converter::convert(const std::string number, const int radixFrom , c
         i++;
     }
     if (number[i] == ',') {
+        isInteger = false;
         i++;
         while (i < number.size()) {
             fractionalPart.push_back(number[i]);
@@ -30,8 +31,10 @@ std::string Converter::convert(const std::string number, const int radixFrom , c
         }
     }
 
-    convertFractionalPart();
-    return convertIntegerPart();
+    if (isInteger) {
+        return convertIntegerPart();
+    }
+    return convertIntegerPart() + ',' + convertFractionalPart();
 }
 
 std::string Converter::convertIntegerPart()
@@ -60,12 +63,33 @@ std::string Converter::convertIntegerPart()
 std::string Converter::convertFractionalPart()
 {
     double numberRadix10 = 0;
-    std::string reverseNumber = "";
+    std::string result = "";
 
-    for (int i = 0; i < fractionalPart.size(); i++) {
-        std::cout << pow(radixFrom, -i - 1) << std::endl;
-//        numberRadix10 += literals.at(fractionalPart[i]) * (pow(radixFrom, (-1) * (i + 1)));
+    for (unsigned int i = 0; i < fractionalPart.size(); i++) {
+        numberRadix10 += literals.at(fractionalPart[i]) * (pow(radixFrom, ((int)i + 1) * (-1)));
     }
 
-    std::cout << numberRadix10 << std::endl;
+    while (numberRadix10 >= 10e-7 && result.length() < 7) {
+        numberRadix10 *= radixTo;
+        result.push_back(getKey((int)numberRadix10));
+        numberRadix10 -= (int)numberRadix10;
+    }
+
+    return result;
+}
+
+void Converter::convertFromConlose()
+{
+    std::string input = "";
+    int from = 0;
+    int to = 0;
+
+    std::cout << "number: ";
+    std::cin  >> input;
+    std::cout << std::endl << "from: ";
+    std::cin  >> from;
+    std::cout << std::endl << "to: ";
+    std::cin  >> to;
+
+    std::cout << std::endl << input << " (" << from << ") = " << convert(input, from, to) << " (" << to << ")" << std::endl;
 }
