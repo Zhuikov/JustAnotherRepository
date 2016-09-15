@@ -19,17 +19,18 @@ std::string Converter::convert(const std::string number, const int radixFrom , c
     unsigned int i = 0;
 
     while (i < number.size() && number[i] != ',') {
-        integerPart += number[i];
+        integerPart.push_back(number[i]);
         i++;
     }
     if (number[i] == ',') {
         i++;
         while (i < number.size()) {
-            fractionalPart += number[i];
+            fractionalPart.push_back(number[i]);
             i++;
         }
     }
 
+    convertFractionalPart();
     return convertIntegerPart();
 }
 
@@ -54,4 +55,17 @@ std::string Converter::convertIntegerPart()
     }
 
     return result;
+}
+
+std::string Converter::convertFractionalPart()
+{
+    double numberRadix10 = 0;
+    std::string reverseNumber = "";
+
+    for (int i = 0; i < fractionalPart.size(); i++) {
+        std::cout << pow(radixFrom, -i - 1) << std::endl;
+//        numberRadix10 += literals.at(fractionalPart[i]) * (pow(radixFrom, (-1) * (i + 1)));
+    }
+
+    std::cout << numberRadix10 << std::endl;
 }

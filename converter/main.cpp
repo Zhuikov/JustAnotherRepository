@@ -5,7 +5,7 @@ int main()
 {
     Converter converter;
 
-    std::cout << converter.convert("ABCD33", 16, 2) << std::endl;
+    std::cout << converter.convert("111101,101", 2, 10) << std::endl;
 
     return 0;
 }
