@@ -2,14 +2,21 @@
 #include <iostream>
 #include <math.h>
 
-char Converter::getKey(int value) const
+void Converter::convertWithConlose()
 {
-    for (std::map< char, int >::const_iterator it = literals.begin(); it != literals.end(); ++it) {
-        if ((*it).second == value) {
-            return (*it).first;
-        }
-    }
-    return '0';
+    std::string input = "";
+    int from = 0;
+    int to = 0;
+
+    std::cout << "number: ";
+    std::cin  >> input;
+    std::cout << std::endl << "from: ";
+    std::cin  >> from;
+    std::cout << std::endl << "to: ";
+    std::cin  >> to;
+
+    std::cout << std::endl << input << " (" << from << ") = " <<
+                 convert(input, from, to) << " (" << to << ")" << std::endl;
 }
 
 std::string Converter::convert(const std::string number, const int radixFrom , const int radixTo)
@@ -43,7 +50,7 @@ std::string Converter::convertIntegerPart()
     std::string reverseNumber = "";
 
     for (unsigned int i = 0; i < integerPart.size(); i++) {
-        numberRadix10 += literals.at(integerPart[i]) * (pow(radixFrom, integerPart.size() - 1 - i));
+        numberRadix10 += literals.at(integerPart[i]) * pow(radixFrom, integerPart.size() - 1 - i);
     }
 
     while (numberRadix10 >= radixTo) {
@@ -66,10 +73,10 @@ std::string Converter::convertFractionalPart()
     std::string result = "";
 
     for (unsigned int i = 0; i < fractionalPart.size(); i++) {
-        numberRadix10 += literals.at(fractionalPart[i]) * (pow(radixFrom, ((int)i + 1) * (-1)));
+        numberRadix10 += literals.at(fractionalPart[i]) * pow(radixFrom, ((int)i + 1) * (-1));
     }
 
-    while (numberRadix10 >= 10e-7 && result.length() < 7) {
+    while (numberRadix10 >= 10e-7 && result.length() < accurate) {
         numberRadix10 *= radixTo;
         result.push_back(getKey((int)numberRadix10));
         numberRadix10 -= (int)numberRadix10;
@@ -78,18 +85,12 @@ std::string Converter::convertFractionalPart()
     return result;
 }
 
-void Converter::convertFromConlose()
+char Converter::getKey(int value) const
 {
-    std::string input = "";
-    int from = 0;
-    int to = 0;
-
-    std::cout << "number: ";
-    std::cin  >> input;
-    std::cout << std::endl << "from: ";
-    std::cin  >> from;
-    std::cout << std::endl << "to: ";
-    std::cin  >> to;
-
-    std::cout << std::endl << input << " (" << from << ") = " << convert(input, from, to) << " (" << to << ")" << std::endl;
+    for (std::map< char, int >::const_iterator it = literals.begin(); it != literals.end(); ++it) {
+        if ((*it).second == value) {
+            return (*it).first;
+        }
+    }
+    return '_';
 }

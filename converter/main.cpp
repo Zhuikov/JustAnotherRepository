@@ -4,7 +4,7 @@
 int main()
 {
     Converter converter;
-    converter.convertFromConlose();
+    converter.convertWithConlose();
 
     return 0;
 }

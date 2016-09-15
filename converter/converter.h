@@ -24,19 +24,27 @@ class Converter
         { 'E', 14 },
         { 'F', 15 }
     };
-    bool isInteger =  true;
-    int radixFrom = 0;
-    int radixTo = 0;
-    std::string integerPart = "";
-    std::string fractionalPart = "";
+    static const unsigned int accurate = 10;
+
+    bool isInteger;
+    int radixFrom;
+    int radixTo;
+    std::string integerPart;
+    std::string fractionalPart;
 
     std::string convertIntegerPart();
     std::string convertFractionalPart();
     char getKey(int value) const;
 
 public:
-    Converter() {}
-    void convertFromConlose();
+    Converter():
+        isInteger(true),
+        radixFrom(0),
+        radixTo(0),
+        integerPart(""),
+        fractionalPart("")
+    {}
+    void convertWithConlose();
     std::string convert(const std::string initialNumber, const int radixFrom, const int radixTo);
 };
 
