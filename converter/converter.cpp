@@ -4,19 +4,43 @@
 
 void Converter::convertWithConlose()
 {
-    std::string input = "";
-    int from = 0;
-    int to = 0;
-
+    std::string inputNumber = "";
+    std::string inputFrom = "";
+    std::string inputTo = "";
+    
     std::cout << "number: ";
-    std::cin  >> input;
+    std::cin  >> inputNumber;
     std::cout << std::endl << "from: ";
-    std::cin  >> from;
+    std::cin  >> inputFrom;
     std::cout << std::endl << "to: ";
-    std::cin  >> to;
+    std::cin  >> inputTo;
 
-    std::cout << std::endl << input << " (" << from << ") = " <<
-                 convert(input, from, to) << " (" << to << ")" << std::endl;
+    for (char item : inputNumber) {
+        if ((item < '0' || item > '9') && (item < 'A' || item > 'F') && (item < 'a' || item > 'f')) {
+            std::cout << "input error" << std::endl;
+            return;
+        }
+    }
+
+    for (char item : inputFrom) {
+        if (item < '0' || item > '9') {
+            std::cout << "input error" << std::endl;
+            return;
+        }
+    }
+
+    for (char item : inputTo) {
+        if (item < '0' || item > '9') {
+            std::cout << "input error" << std::endl;
+            return;
+        }
+    }
+
+    int from = atoi(inputFrom.c_str());
+    int to = atoi(inputTo.c_str());
+
+    std::cout << std::endl << inputNumber << " (" << inputFrom << ") = " <<
+                 convert(inputNumber, from, to) << " (" << inputTo << ")" << std::endl;
 }
 
 std::string Converter::convert(const std::string number, const int radixFrom , const int radixTo)
