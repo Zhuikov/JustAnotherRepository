@@ -1,4 +1,3 @@
-build* 
 *.o
 *.a
 *.pro.user* 
@@ -7,3 +6,6 @@ build*
 *.synctex.gz 
 *.tdo 
 *.toc 
+.gradle/
+.idea/
+build/
