@@ -32,19 +32,17 @@ class Converter
     };
     static const unsigned int accurate = 10;
 
-    bool isInteger;
     int radixFrom;
     int radixTo;
     std::string integerPart;
     std::string fractionalPart;
 
-    std::string convertIntegerPart();
-    std::string convertFractionalPart();
+    std::string convertIntegerPart() const;
+    std::string convertFractionalPart() const;
     char getKey(int value) const;
 
 public:
     Converter():
-        isInteger(true),
         radixFrom(0),
         radixTo(0),
         integerPart(""),
