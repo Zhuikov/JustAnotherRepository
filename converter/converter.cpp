@@ -59,15 +59,13 @@ std::string Converter::convert(const std::string number, const int radixFrom , c
     unsigned int i = 0;
 
     while (i < number.size() && number[i] != ',' && number[i] != '.') {
-        integerPart.push_back(number[i]);
-        i++;
+        integerPart.push_back(number[i++]);
     }
     if (number[i] == ',' || number[i] == '.') {
         isInteger = false;
         i++;
         while (i < number.size()) {
-            fractionalPart.push_back(number[i]);
-            i++;
+            fractionalPart.push_back(number[i++]);
         }
     }
 

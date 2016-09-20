@@ -32,8 +32,8 @@ class Converter
     };
     static const unsigned int accurate = 10;
 
-    int radixFrom;
-    int radixTo;
+    short int radixFrom;
+    short int radixTo;
     std::string integerPart;
     std::string fractionalPart;
 
