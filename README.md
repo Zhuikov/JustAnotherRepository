@@ -44,8 +44,8 @@
 Графическое приложение, позволяющее играть в Коридор двум игрокам.
 
 ## Диаграмма прецедентов использования.
-![UseCase1](/pictures/UseCaseDiagram1.png)
 ![UseCase2](/pictures/UseCaseDiagram2.png)
+![UseCase1](/pictures/UseCaseDiagram1.png)
 
 ## Диаграмма компонентов.
 ![ComponentDiagram](/pictures/ComponentDiagram.png)
