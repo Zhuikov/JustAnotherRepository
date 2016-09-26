@@ -43,5 +43,9 @@
 ## Минимально работоспособный продукт (Minimum viable product).
 Графическое приложение, позволяющее играть в Коридор двум игрокам.
 
-## Диаграмма компонентов
+## Диаграмма прецедентов использования.
+![UseCase1](/pictures/UseCaseDiagram1.png)
+![UseCase2](/pictures/UseCaseDiagram2.png)
+
+## Диаграмма компонентов.
 ![ComponentDiagram](/pictures/ComponentDiagram.png)
