@@ -3,9 +3,8 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 public class Item {
 
-    private int horizontal = -1;
-    private int vertical   = -1;
-    private Field field    = null;
+    protected int horizontal = -1;
+    protected int vertical   = -1;
 
     public int getHorizontal() {
         return horizontal;
@@ -27,10 +26,11 @@ public class Item {
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("item: ")
+        sb.append("[item: ")
                 .append(horizontal)
                 .append(" ")
-                .append(vertical);
+                .append(vertical)
+                .append("]");
 
         return sb.toString();
     }
