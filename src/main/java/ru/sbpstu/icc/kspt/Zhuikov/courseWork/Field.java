@@ -6,7 +6,7 @@ public class Field {
     private static final int MAX_FIELD_SIZE = 30;
     private static final int MIN_FIELD_SIZE = 7;
     private final int realSize;
-    private Item[][] field;
+    private FieldItem[][] field;
 
     public Field(int size) {
 
@@ -16,10 +16,10 @@ public class Field {
         }
 
         realSize = size * 2 - 1;
-        field = new Item[realSize][realSize];
+        field = new FieldItem[realSize][realSize];
         for (int i = 0; i < realSize; i++) {
             for (int j = 0; j < realSize; j++) {
-                field[i][j] = null; //todo EmptyItem
+                field[i][j] = FieldItem.EMPTY;
             }
         }
 
@@ -29,7 +29,7 @@ public class Field {
         this(9);
     }
 
-    void printField() {
+    public void printField() {
 
         for (int i = 0; i < realSize; i++) {
             for (int j = 0; j < realSize; j++) {
@@ -40,10 +40,27 @@ public class Field {
 
     }
 
-    void setItem(Item item, int vertical, int horizontal) {
-        item.setHorizontal(horizontal);
-        item.setVertical(vertical);
-        field[vertical][horizontal] = item;
+    public FieldItem getItem(int vertical, int horizontal) {
+
+        if (checkBounds(vertical, horizontal)) {
+            return field[vertical][horizontal];
+        }
+        throw new IllegalArgumentException("wrong get indexes [" + vertical + " " + horizontal + "]");
+    }
+
+    private boolean checkBounds(int vertical, int horizontal) {
+
+        return (vertical >= 0) && (vertical < realSize) &&
+                (horizontal >= 0) && (horizontal < realSize);
+
+    }
+
+    public void setItem(FieldItem item, int vertical, int horizontal) {
+
+        if (checkBounds(vertical, horizontal)) {
+            field[vertical][horizontal] = item;
+        }
+
     }
 
 }
