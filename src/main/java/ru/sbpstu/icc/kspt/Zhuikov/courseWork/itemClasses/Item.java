@@ -4,14 +4,12 @@ import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Field;
 
 public class Item {
 
-    protected int vertical;
-    protected int horizontal;
+    protected int vertical = -1;
+    protected int horizontal = -1;
     protected Field field;
 
-    Item(int vertical, int horizontal, Field field) {
+    public Item(Field field) {
 
-        this.vertical = vertical;
-        this.horizontal = horizontal;
         this.field = field;
 
     }

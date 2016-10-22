@@ -20,6 +20,9 @@ public class Field {
         for (int i = 0; i < realSize; i++) {
             for (int j = 0; j < realSize; j++) {
                 field[i][j] = FieldItem.EMPTY;
+                if ((i % 2 == 0) && (j % 2 == 0)) {
+                    //todo obj with color
+                }
             }
         }
 
