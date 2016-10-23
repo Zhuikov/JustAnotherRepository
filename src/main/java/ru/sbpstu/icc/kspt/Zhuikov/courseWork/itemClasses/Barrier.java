@@ -31,8 +31,8 @@ public class Barrier extends Item {
         if (!position.equals("vertical") && !position.equals("horizontal")) {
             throw new IllegalArgumentException("wrong argument \"" + position + "\" in Barrier");
         }
-        if ((vertical % 2 == 0) && (horizontal % 2 == 0)) {
-            throw new IllegalArgumentException("barrier coordinates can't be even-numbered together");
+        if (field.getColor(vertical, horizontal).equals("black")) {
+            throw new IllegalArgumentException("impossible to set barrier on black cell");
         }
 
     }
@@ -40,15 +40,17 @@ public class Barrier extends Item {
     private boolean checkPlace(int vertical, int horizontal, String position) {
 
         if (position.equals("vertical")) {
-            for (int i = vertical - length + 1; i < vertical + length - 1; i++) {
-                if (field.getItem(i, horizontal) != FieldItem.EMPTY) { //todo ask color
+            for (int i = vertical - length + 1; i <= vertical + length - 1; i++) {
+                if ((field.getItem(i, horizontal) != FieldItem.EMPTY) ||
+                        (field.getColor(i, horizontal).equals("black"))) {
                     return false;
                 }
             }
 
         } else if (position.equals("horizontal")) {
-            for (int i = horizontal - length + 1; i < horizontal + length - 1; i++) {
-                if (field.getItem(vertical, i) != FieldItem.EMPTY) {  //todo ...
+            for (int i = horizontal - length + 1; i <= horizontal + length - 1; i++) {
+                if ((field.getItem(vertical, i) != FieldItem.EMPTY) ||
+                        (field.getColor(vertical, i).equals("black"))) {
                     return false;
                 }
             }

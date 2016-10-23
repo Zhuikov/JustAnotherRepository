@@ -6,7 +6,34 @@ public class Field {
     private static final int MAX_FIELD_SIZE = 30;
     private static final int MIN_FIELD_SIZE = 7;
     private final int realSize;
-    private FieldItem[][] field;
+    private Cell[][] field;
+
+    private class Cell {
+
+        private String color;
+        private FieldItem fieldItem;
+
+        String getColor() {
+            return color;
+        }
+
+        FieldItem getFieldItem() {
+            return fieldItem;
+        }
+
+        void setColor(String color) {
+            this.color = color;
+        }
+
+        void setFieldItem(FieldItem fieldItem) {
+            this.fieldItem = fieldItem;
+        }
+
+        Cell(FieldItem fieldItem) {
+            this.fieldItem = fieldItem;
+        }
+
+    }
 
     public Field(int size) {
 
@@ -16,12 +43,14 @@ public class Field {
         }
 
         realSize = size * 2 - 1;
-        field = new FieldItem[realSize][realSize];
+        field = new Cell[realSize][realSize];
         for (int i = 0; i < realSize; i++) {
             for (int j = 0; j < realSize; j++) {
-                field[i][j] = FieldItem.EMPTY;
+                field[i][j] = new Cell(FieldItem.EMPTY);
                 if ((i % 2 == 0) && (j % 2 == 0)) {
-                    //todo obj with color
+                    field[i][j].setColor("black");
+                } else {
+                    field[i][j].setColor("white");
                 }
             }
         }
@@ -45,24 +74,19 @@ public class Field {
 
     public FieldItem getItem(int vertical, int horizontal) {
 
-        if (checkBounds(vertical, horizontal)) {
-            return field[vertical][horizontal];
-        }
-        throw new IllegalArgumentException("wrong get indexes [" + vertical + " " + horizontal + "]");
+        return field[vertical][horizontal].getFieldItem();
+
     }
 
-    private boolean checkBounds(int vertical, int horizontal) {
+    public String getColor(int vertical, int horizontal) {
 
-        return (vertical >= 0) && (vertical < realSize) &&
-                (horizontal >= 0) && (horizontal < realSize);
+        return field[vertical][horizontal].getColor();
 
     }
 
     public void setItem(FieldItem item, int vertical, int horizontal) {
 
-        if (checkBounds(vertical, horizontal)) {
-            field[vertical][horizontal] = item;
-        }
+        field[vertical][horizontal].setFieldItem(item);
 
     }
 
