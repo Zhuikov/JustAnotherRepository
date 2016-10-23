@@ -4,18 +4,15 @@ import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Field;
 
 public class Item {
 
-    protected int vertical = -1;
-    protected int horizontal = -1;
-    protected Field field;
+    protected Coordinates coordinates;
+    protected Field field = null;
 
     public Item(Field field) {
 
+        coordinates = new Coordinates(-1, -1);
         this.field = field;
 
     }
 
-    public int getVertical() { return  vertical; }
-
-    public int getHorizontal() { return  horizontal; }
-
+    public Item() {}
 }
