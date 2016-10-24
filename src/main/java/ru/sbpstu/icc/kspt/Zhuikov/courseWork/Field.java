@@ -8,6 +8,10 @@ public class Field {
     private final int realSize;
     private Cell[][] field;
 
+    public int getRealSize() {
+        return realSize;
+    }
+
     private class Cell {
 
         private String color;
@@ -59,17 +63,6 @@ public class Field {
 
     public Field() {
         this(9);
-    }
-
-    public void printField() {
-
-        for (int i = 0; i < realSize; i++) {
-            for (int j = 0; j < realSize; j++) {
-                System.out.print(field[i][j] + " ");
-            }
-            System.out.println();
-        }
-
     }
 
     public FieldItem getItem(int vertical, int horizontal) {

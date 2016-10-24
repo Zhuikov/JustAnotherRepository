@@ -15,4 +15,9 @@ public class Item {
     }
 
     public Item() {}
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
 }
