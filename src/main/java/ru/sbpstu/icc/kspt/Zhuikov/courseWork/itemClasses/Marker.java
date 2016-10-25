@@ -1,7 +1,8 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses;
 
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Field;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.FieldItem;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.CellColor;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
 
 public class Marker extends Item {   // todo tests
 
@@ -26,7 +27,7 @@ public class Marker extends Item {   // todo tests
 
     private void checkPlace(int vertical, int horizontal) throws Exception {
 
-        if (field.getColor(vertical, horizontal).equals("white")) {
+        if (field.getColor(vertical, horizontal) == CellColor.WHITE) {
             throw new Exception("impossible to set marker on white cell");
         }
 
