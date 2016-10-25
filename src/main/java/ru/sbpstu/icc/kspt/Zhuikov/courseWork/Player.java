@@ -1,6 +1,7 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Marker;
@@ -28,7 +29,7 @@ public class Player { // todo tests
 
     }
 
-    public void putBarrier(int vertical, int horizontal, String position) throws Exception {
+    public void putBarrier(int vertical, int horizontal, BarrierPosition position) throws Exception {
 
         if (barriers.isEmpty()) {
             throw new Exception("you have no barriers");

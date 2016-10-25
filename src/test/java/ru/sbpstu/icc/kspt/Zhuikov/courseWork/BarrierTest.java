@@ -2,6 +2,8 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 
 import org.junit.Test;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
 
@@ -15,7 +17,7 @@ public class BarrierTest {
     public void testVerticalBarrierSet() throws Exception {
 
         Barrier barrier = new Barrier(field);
-        barrier.toField(5, 3, "vertical");
+        barrier.toField(5, 3, BarrierPosition.VERTICAL);
         assertEquals(field.getItem(5, 3), FieldItem.BARRIER);
         assertEquals(field.getItem(4, 3), FieldItem.BARRIER);
         assertEquals(field.getItem(6, 3), FieldItem.BARRIER);
@@ -26,7 +28,7 @@ public class BarrierTest {
     public void testHorizontalBarrierSet() throws Exception {
 
         Barrier barrier = new Barrier(field);
-        barrier.toField(13, 11, "horizontal");
+        barrier.toField(13, 11, BarrierPosition.HORIZONTAL);
         assertEquals(field.getItem(13, 10), FieldItem.BARRIER);
         assertEquals(field.getItem(13, 11), FieldItem.BARRIER);
         assertEquals(field.getItem(13, 12), FieldItem.BARRIER);
@@ -37,7 +39,7 @@ public class BarrierTest {
     public void testAllCoordinates() throws Exception {
 
         Barrier barrier = new Barrier(field);
-        barrier.toField(11, 5, "vertical");
+        barrier.toField(11, 5, BarrierPosition.VERTICAL);
         assertEquals(barrier.getAllCoordinates().get(0), new Coordinates(10, 5));
         assertEquals(barrier.getAllCoordinates().get(1), new Coordinates(11, 5));
         assertEquals(barrier.getAllCoordinates().get(2), new Coordinates(12, 5));
@@ -48,7 +50,7 @@ public class BarrierTest {
     public void testBlackCellSet() throws Exception {
 
         Barrier barrier = new Barrier(field);
-        barrier.toField(2, 8, "horizontal");
+        barrier.toField(2, 8, BarrierPosition.HORIZONTAL);
 
     }
 
@@ -58,8 +60,8 @@ public class BarrierTest {
         Barrier barrier1 = new Barrier(field);
         Barrier barrier2 = new Barrier(field);
 
-        barrier1.toField(5, 3, "vertical");
-        barrier2.toField(5, 2, "horizontal");
+        barrier1.toField(5, 3, BarrierPosition.VERTICAL);
+        barrier2.toField(5, 2, BarrierPosition.HORIZONTAL);
 
     }
 
@@ -67,6 +69,6 @@ public class BarrierTest {
     public void testSetBetweenBlackCells() throws Exception {
 
         Barrier barrier = new Barrier(field);
-        barrier.toField(7, 12, "vertical");
+        barrier.toField(7, 12, BarrierPosition.VERTICAL);
     }
 }

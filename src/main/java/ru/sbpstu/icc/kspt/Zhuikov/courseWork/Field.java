@@ -1,5 +1,7 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.CellColor;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
 
 public class Field {
 
@@ -14,10 +16,10 @@ public class Field {
 
     private class Cell {
 
-        private String color;
+        private CellColor color;
         private FieldItem fieldItem;
 
-        String getColor() {
+        CellColor getColor() {
             return color;
         }
 
@@ -25,7 +27,7 @@ public class Field {
             return fieldItem;
         }
 
-        void setColor(String color) {
+        void setColor(CellColor color) {
             this.color = color;
         }
 
@@ -52,9 +54,9 @@ public class Field {
             for (int j = 0; j < realSize; j++) {
                 field[i][j] = new Cell(FieldItem.EMPTY);
                 if ((i % 2 == 0) && (j % 2 == 0)) {
-                    field[i][j].setColor("black");
+                    field[i][j].setColor(CellColor.BLACK);
                 } else {
-                    field[i][j].setColor("white");
+                    field[i][j].setColor(CellColor.WHITE);
                 }
             }
         }
@@ -71,7 +73,7 @@ public class Field {
 
     }
 
-    public String getColor(int vertical, int horizontal) {
+    public CellColor getColor(int vertical, int horizontal) {
 
         return field[vertical][horizontal].getColor();
 

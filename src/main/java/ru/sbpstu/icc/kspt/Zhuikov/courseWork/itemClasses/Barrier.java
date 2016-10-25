@@ -1,7 +1,7 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses;
 
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Field;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.FieldItem;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,41 +19,41 @@ public class Barrier extends Item {
         super(field);
     }
 
-    public void toField(int vertical, int horizontal, String position) throws Exception {
+    public void toField(int vertical, int horizontal, BarrierPosition position) throws Exception {
 
-        checkArguments(position);
+//        checkArguments(position);
         checkPlace(vertical, horizontal, position);
         setBarrier(vertical, horizontal, position);
     }
 
-    private void checkArguments(String position) {
+//    private void checkArguments(BarrierPosition position) {
+//
+//        if (!position.equals("vertical") && !position.equals("horizontal")) {
+//            throw new IllegalArgumentException("wrong argument \"" + position + "\" in Barrier");
+//        }
+//
+//    }
 
-        if (!position.equals("vertical") && !position.equals("horizontal")) {
-            throw new IllegalArgumentException("wrong argument \"" + position + "\" in Barrier");
-        }
+    private boolean checkPlace(int vertical, int horizontal, BarrierPosition position) throws Exception {
 
-    }
-
-    private boolean checkPlace(int vertical, int horizontal, String position) throws Exception {
-
-        if (position.equals("vertical")) {                      //todo что-то сделать
+        if (position == BarrierPosition.VERTICAL) {                      //todo что-то сделать
             for (int i = vertical - length + 1; i <= vertical + length - 1; i++) {
                 if (field.getItem(i, horizontal) != FieldItem.EMPTY) {
                     throw new Exception("impossible to place barrier on field " +
                             vertical + " " + horizontal);
                 }
-                if (field.getColor(i, horizontal).equals("black")) {
+                if (field.getColor(i, horizontal) == CellColor.BLACK) {
                    throw new Exception("impossible to set barrier on black cell");
                 }
             }
 
-        } else if (position.equals("horizontal")) {
+        } else if (position == BarrierPosition.HORIZONTAL) {
             for (int i = horizontal - length + 1; i <= horizontal + length - 1; i++) {
                 if (field.getItem(vertical, i) != FieldItem.EMPTY) {
                     throw new Exception("impossible to place barrier on field " +
                             vertical + " " + horizontal);
                 }
-                if (field.getColor(vertical, i).equals("black")) {
+                if (field.getColor(vertical, i) == CellColor.BLACK) {
                     throw new Exception("impossible to set barrier on black cell");
                 }
             }
@@ -90,15 +90,15 @@ public class Barrier extends Item {
 
     }
 
-    private void setBarrier(int vertical, int horizontal, String position) {
+    private void setBarrier(int vertical, int horizontal, BarrierPosition position) {
 
-        if (position.equals("vertical")) {
+        if (position == BarrierPosition.VERTICAL) {
             for (int i = vertical - length + 1; i <= vertical + length - 1; i++) {
                 field.setItem(FieldItem.BARRIER, i, horizontal);
                 allCoordinates.add(new Coordinates(i, horizontal));
             }
 
-        } else if (position.equals("horizontal")) {
+        } else if (position == BarrierPosition.HORIZONTAL) {
             for (int i = horizontal - length + 1; i <= horizontal + length - 1; i++) {
                 field.setItem(FieldItem.BARRIER, vertical, i);
                 allCoordinates.add(new Coordinates(vertical, i));
