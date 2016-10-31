@@ -1,9 +1,11 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
-
 import org.junit.Test;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.CellIsNotEmptyException;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ImpossibleToSetException;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ItemFieldException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
 
@@ -14,7 +16,7 @@ public class BarrierTest {
     private Field field = new Field();
 
     @Test
-    public void testVerticalBarrierSet() throws Exception {
+    public void testVerticalBarrierSet() throws ItemFieldException {
 
         Barrier barrier = new Barrier(field);
         barrier.toField(5, 3, BarrierPosition.VERTICAL);
@@ -25,7 +27,7 @@ public class BarrierTest {
     }
 
     @Test
-    public void testHorizontalBarrierSet() throws Exception {
+    public void testHorizontalBarrierSet() throws ItemFieldException {
 
         Barrier barrier = new Barrier(field);
         barrier.toField(13, 11, BarrierPosition.HORIZONTAL);
@@ -36,7 +38,7 @@ public class BarrierTest {
     }
 
     @Test
-    public void testAllCoordinates() throws Exception {
+    public void testAllCoordinates() throws ItemFieldException {
 
         Barrier barrier = new Barrier(field);
         barrier.toField(11, 5, BarrierPosition.VERTICAL);
@@ -46,7 +48,7 @@ public class BarrierTest {
 
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = ImpossibleToSetException.class)
     public void testBlackCellSet() throws Exception {
 
         Barrier barrier = new Barrier(field);
@@ -54,7 +56,7 @@ public class BarrierTest {
 
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = CellIsNotEmptyException.class)
     public void testImpossibleSet() throws Exception {
 
         Barrier barrier1 = new Barrier(field);
@@ -65,7 +67,7 @@ public class BarrierTest {
 
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = ImpossibleToSetException.class)
     public void testSetBetweenBlackCells() throws Exception {
 
         Barrier barrier = new Barrier(field);

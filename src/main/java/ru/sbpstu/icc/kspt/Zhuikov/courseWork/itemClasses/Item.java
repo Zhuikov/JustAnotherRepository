@@ -4,12 +4,11 @@ import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Field;
 
 public class Item {
 
-    protected Coordinates coordinates;
+    protected Coordinates coordinates = new Coordinates(-1, -1);
     protected Field field = null;
 
     public Item(Field field) {
 
-        coordinates = new Coordinates(-1, -1);
         this.field = field;
 
     }
