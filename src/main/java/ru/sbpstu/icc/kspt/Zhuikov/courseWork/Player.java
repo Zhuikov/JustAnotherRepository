@@ -5,19 +5,16 @@ import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ItemFieldException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.NoBarriersException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Marker;
 
 import java.util.List;
 
 public class Player { // todo tests
 
-    // private Field field = null;  // todo надо ли...?
     private Marker marker = null;
     private List<Barrier> barriers = null;
 
     public Player(Marker marker, List<Barrier> barriers) {
-        //this.field = field;
         this.barriers = barriers;
         this.marker = marker;
     }
@@ -28,7 +25,7 @@ public class Player { // todo tests
 
     }
 
-    public void putBarrier(int vertical, int horizontal, BarrierPosition position)
+    public void placeBarrier(int vertical, int horizontal, BarrierPosition position)
             throws NoBarriersException, ItemFieldException {
 
         if (barriers.isEmpty()) {
@@ -39,9 +36,4 @@ public class Player { // todo tests
 
     }
 
-    public Coordinates getMarkerCoordinates() {
-
-        return new Coordinates(marker.getCoordinates().getVertical(), marker.getCoordinates().getHorizontal());
-
-    }
 }

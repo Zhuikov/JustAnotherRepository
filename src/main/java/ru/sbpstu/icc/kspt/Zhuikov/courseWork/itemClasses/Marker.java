@@ -22,7 +22,7 @@ public class Marker extends Item {
 
     private void checkPlace(int vertical, int horizontal) throws ItemFieldException {
 
-        if (coordinates == new Coordinates(vertical, horizontal)) {
+        if (coordinates.equals(new Coordinates(vertical, horizontal))) {
             throw new SetToSameCellException("impossible to move to the same cell");
         }
 

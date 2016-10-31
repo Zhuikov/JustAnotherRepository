@@ -1,5 +1,6 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ItemFieldException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.NoBarriersException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
@@ -33,33 +34,17 @@ public class QuoridorGame {
 
     }
 
-    public List<Message> makeMove(Command command) {
+    public void moveMarker(int vertical, int horizontal) throws ItemFieldException {
 
-        List<Message> messages = new LinkedList<>();
+        players.peek().moveMarker(vertical, horizontal);
+        players.add(players.poll());
+    }
 
-        switch (command.getCommandType()) {
-            case MARKER:
-                try {
-                    players.peek().moveMarker(command.getVertical(), command.getHorizontal());
-                    players.add(players.poll());
-                } catch (ItemFieldException | ArrayIndexOutOfBoundsException e) {
-                    messages.add(new Message(e.getMessage()));
-                }
-                break;
+    public void placeBarrier(int vertical, int horizontal, BarrierPosition position)
+            throws NoBarriersException, ItemFieldException {
 
-            case BARRIER:
-                try {
-                    players.peek().putBarrier(command.getVertical(), command.getHorizontal(), command.getBarrierPosition());
-                    players.add(players.poll());
-                } catch (ItemFieldException | NoBarriersException | ArrayIndexOutOfBoundsException e) {
-                    messages.add(new Message(e.getMessage()));
-                }
-                break;
-
-        }
-
-        return messages;
-
+        players.peek().placeBarrier(vertical, horizontal, position);
+        players.add(players.poll());
     }
 
     private Player addPlayer(int markerVertical, int markerHorizontal) {
@@ -68,8 +53,8 @@ public class QuoridorGame {
         for (int i = 0; i < barriersNumber; i++) {
             barriers.add(new Barrier(field));
         }
-        return new Player(new Marker(field, markerVertical, markerHorizontal), barriers);
 
+        return new Player(new Marker(field, markerVertical, markerHorizontal), barriers);
     }
 
 }

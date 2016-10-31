@@ -7,11 +7,11 @@ public class Item {
     protected Coordinates coordinates = new Coordinates(-1, -1);
     protected Field field = null;
 
-    public Item(Field field) {
-
-        this.field = field;
-
-    }
+//    public Item(Field field) {
+//
+//        this.field = field;
+//
+//    }
 
     public Item() {}
 

@@ -19,23 +19,14 @@ public class Barrier extends Item {
     }
 
     public Barrier(Field field) {
-        super(field);
+        this.field = field;
     }
 
     public void toField(int vertical, int horizontal, BarrierPosition position) throws ItemFieldException {
 
-//        checkArguments(position);
         checkPlace(vertical, horizontal, position);
         setBarrier(vertical, horizontal, position);
     }
-
-//    private void checkArguments(BarrierPosition position) {
-//
-//        if (!position.equals("vertical") && !position.equals("horizontal")) {
-//            throw new IllegalArgumentException("wrong argument \"" + position + "\" in Barrier");
-//        }
-//
-//    }
 
     private boolean checkPlace(int vertical, int horizontal, BarrierPosition position) throws ItemFieldException {
 
@@ -63,34 +54,6 @@ public class Barrier extends Item {
         }
 
         return true;
-
-//        int a = 0;
-//        Coordinates coordinates = new Coordinates(-1, -1);
-//        if (position.equals("vertical")) {
-//            a = vertical;
-//            coordinates.setHorizontal(horizontal);
-//        } else if (position.equals("horizontal")) {
-//            a = horizontal;
-//            coordinates.setVertical(vertical);
-//        }
-//
-//        for (int i = a - length + 1; i <= a + length - 1; i++) {
-//
-//            if (position.equals("vertical")) {
-//                coordinates.setHorizontal(i);
-//            } else if (position.equals("horizontal")){
-//                coordinates.setVertical(i);
-//            }
-//
-//            if (field.getItem(coordinates) != FieldItem.EMPTY) {
-//                throw new Exception("impossible to place barrier on field " +
-//                        vertical + " " + horizontal);
-//            }
-//            if (field.getColor(coordinates).equals("black")) {
-//                throw new Exception("impossible to set barrier on black cell");
-//            }
-//        }
-
     }
 
     private void setBarrier(int vertical, int horizontal, BarrierPosition position) {
@@ -110,6 +73,5 @@ public class Barrier extends Item {
 
         coordinates.setVertical(vertical);
         coordinates.setHorizontal(horizontal);
-
     }
 }

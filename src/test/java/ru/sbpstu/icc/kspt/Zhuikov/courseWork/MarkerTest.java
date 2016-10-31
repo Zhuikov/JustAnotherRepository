@@ -3,12 +3,9 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 import org.junit.Test;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.*;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Item;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Marker;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,6 +30,14 @@ public class MarkerTest {
         assertEquals(new Coordinates(2, 2), marker.getCoordinates());
         marker.moveTo(0, 2);
         assertEquals(new Coordinates(0, 2), marker.getCoordinates());
+
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testMovingOutOfBounds() throws ItemFieldException {
+
+        Marker marker = new Marker(field, 0, 8);
+        marker.moveTo(-2, 8);
 
     }
 
@@ -67,16 +72,6 @@ public class MarkerTest {
 
         Marker marker = new Marker(field, 0, 8);
         marker.moveTo(0, 8);
-
-    }
-
-    @Test
-    public void test() {
-
-        Player player = new Player(new Marker(field, 0, 8), new LinkedList<Barrier>());
-        Coordinates c = player.getMarkerCoordinates();
-        c.setVertical(1444);
-        System.out.println(player.getMarkerCoordinates().getVertical() + " " + player.getMarkerCoordinates().getHorizontal());
 
     }
 
