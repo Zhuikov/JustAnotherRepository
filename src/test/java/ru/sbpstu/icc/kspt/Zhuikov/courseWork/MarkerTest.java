@@ -4,7 +4,6 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 import org.junit.Test;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.*;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Item;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Marker;
 
 import static org.junit.Assert.assertEquals;
