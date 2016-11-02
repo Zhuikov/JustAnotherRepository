@@ -34,14 +34,13 @@ public class ConsoleDrawer {
             }
             System.out.println();
         }
-        System.out.println();
 
     }
 
     public void drawPlayerInformation(Player playerPosition) {
 
         System.out.println("Player " + playerPosition +
-                ". Barriers: " + game.getPlayerInformation(playerPosition).getBarriers() + "\n");
+                ". Barriers: " + game.getPlayerInformation(playerPosition).getBarriers());
 
     }
 
@@ -62,12 +61,11 @@ public class ConsoleDrawer {
 
         String help = "Quoridor game. Commands help.\n" +
                 "   Command examples (without \"[ ]\":\n" +
-                "       [marker 2 2] - moves current player's marker to [2 2] position if it possible\n" +
-                "       [barrier 5 5 vertical] - places current player's barrier to [5 5] position " +
+                "     [marker 2 2] - moves current player's marker to [2 2] position if it possible\n" +
+                "     [barrier 5 5 vertical] - places current player's barrier to [5 5] position " +
                 "in vertical if it possible\n" +
-                "       [barrier 5 5 horizontal] - places current player's barrier to [5 5] position " +
-                "in horizontal if it possible\n" +
-                "       [back] - closes this help and continues the game.\n";
+                "     [barrier 5 5 horizontal] - places current player's barrier to [5 5] position " +
+                "in horizontal if it possible\n";
 
         System.out.println(help);
     }

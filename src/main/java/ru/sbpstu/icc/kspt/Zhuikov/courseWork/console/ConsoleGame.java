@@ -22,12 +22,12 @@ public class ConsoleGame {
     public void launch() {
 
         Scanner in = new Scanner(System.in);
+        drawer.drawPlayerInformation(Player.TOP);
+        drawer.drawField();
+        drawer.drawPlayerInformation(Player.BOTTOM);
+        drawer.drawTurn();
         while (!game.isOver()) {
 
-            drawer.drawPlayerInformation(Player.TOP);
-            drawer.drawField();
-            drawer.drawPlayerInformation(Player.BOTTOM);
-            drawer.drawTurn();
             try {
                 Command command = reader.read(in.nextLine());
                 switch (command.getCommandType()) {
@@ -43,7 +43,16 @@ public class ConsoleGame {
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                System.out.println();
+                drawer.drawTurn();
+                continue;
             }
+
+            System.out.println();
+            drawer.drawPlayerInformation(Player.TOP);
+            drawer.drawField();
+            drawer.drawPlayerInformation(Player.BOTTOM);
+            drawer.drawTurn();
         }
 
     }

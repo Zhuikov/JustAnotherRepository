@@ -68,13 +68,9 @@ public class Field {
         this(9);
     }
 
-    public FieldItem getItem(int vertical, int horizontal) throws FieldCoordinatesException {
+    public FieldItem getItem(int vertical, int horizontal) {
 
-        try {
-            return field[vertical][horizontal].getFieldItem();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FieldCoordinatesException("wrong coordinates " + vertical + " " + horizontal);
-        }
+        return field[vertical][horizontal].getFieldItem();
 
     }
 

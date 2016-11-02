@@ -69,10 +69,8 @@ public class QuoridorGame {
             case 0: return Player.TOP;
             case 1: return Player.BOTTOM;
             case 2: return Player.LEFT;
-            case 3: return Player.RIGHT;
+            default: return Player.RIGHT;
         }
-
-        throw new AssertionError("counter currentPlayer broke");
     }
 
     public PlayerInformation getPlayerInformation(Player player) {
@@ -81,13 +79,11 @@ public class QuoridorGame {
             case TOP:    return players.get(0).getInformation();
             case BOTTOM: return players.get(1).getInformation();
             case LEFT:   return players.get(2).getInformation();
-            case RIGHT:  return players.get(3).getInformation();
+            default:  return players.get(3).getInformation();
         }
-
-        throw new AssertionError("argument Player broke");
     }
 
-    public boolean isOver() {
+    public boolean isOver() {  //todo кто победил
 
         return ((players.get(0).getInformation().getCoordinates().getVertical() == 16) ||
                 (players.get(1).getInformation().getCoordinates().getVertical() == 0));

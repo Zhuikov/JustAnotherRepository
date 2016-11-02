@@ -3,6 +3,7 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Field;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.*;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.CellIsNotEmptyException;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.FieldCoordinatesException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ImpossibleToSetException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ItemFieldException;
 
@@ -30,30 +31,38 @@ public class Barrier extends Item {
 
     private boolean checkPlace(int vertical, int horizontal, BarrierPosition position) throws ItemFieldException {
 
-        if (vertical == field.getRealSize() || vertical == 0 ||
-                horizontal == field.getRealSize() || horizontal == 0) {
-            throw new ImpossibleToSetException("impossible to place barrier here: need more space");
-        }
+//        if (vertical == field.getRealSize() || vertical == 0 ||
+//                horizontal == field.getRealSize() || horizontal == 0) {
+//            throw new ImpossibleToSetException("impossible to place barrier here: need more space");
+//        }
 
         if (position == BarrierPosition.VERTICAL) {                      //todo что-то сделать
             for (int i = vertical - length + 1; i <= vertical + length - 1; i++) {
-                if (field.getItem(i, horizontal) != FieldItem.EMPTY) {
-                    throw new CellIsNotEmptyException("impossible to place barrier on field " +
-                            vertical + " " + horizontal);
-                }
-                if (field.getColor(i, horizontal) == CellColor.BLACK) {
-                   throw new ImpossibleToSetException("impossible to set barrier on black cell");
+                try {
+                    if (field.getItem(i, horizontal) != FieldItem.EMPTY) {
+                        throw new CellIsNotEmptyException("impossible to place barrier on occupied field " +
+                                vertical + " " + horizontal);
+                    }
+                    if (field.getColor(i, horizontal) == CellColor.BLACK) {
+                        throw new ImpossibleToSetException("impossible to set barrier on black cell");
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new FieldCoordinatesException("impossible to place barrier on " + vertical + " " + horizontal);
                 }
             }
 
         } else if (position == BarrierPosition.HORIZONTAL) {
             for (int i = horizontal - length + 1; i <= horizontal + length - 1; i++) {
-                if (field.getItem(vertical, i) != FieldItem.EMPTY) {
-                    throw new CellIsNotEmptyException("impossible to place barrier on field " +
-                            vertical + " " + horizontal);
-                }
-                if (field.getColor(vertical, i) == CellColor.BLACK) {
-                    throw new ImpossibleToSetException("impossible to set barrier on black cell");
+                try {
+                    if (field.getItem(vertical, i) != FieldItem.EMPTY) {
+                        throw new CellIsNotEmptyException("impossible to place barrier on field " +
+                                vertical + " " + horizontal);
+                    }
+                    if (field.getColor(vertical, i) == CellColor.BLACK) {
+                        throw new ImpossibleToSetException("impossible to set barrier on black cell");
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new FieldCoordinatesException("impossible to place barrier on " + vertical + " " + horizontal);
                 }
             }
         }
