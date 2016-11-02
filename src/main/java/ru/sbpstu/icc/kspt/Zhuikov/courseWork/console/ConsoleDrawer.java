@@ -2,7 +2,7 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork.console;
 
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.QuoridorGame;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.CellColor;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.PlayerPosition;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Player;
 
 
 public class ConsoleDrawer {
@@ -38,7 +38,7 @@ public class ConsoleDrawer {
 
     }
 
-    public void drawPlayerInformation(PlayerPosition playerPosition) {
+    public void drawPlayerInformation(Player playerPosition) {
 
         System.out.println("Player " + playerPosition +
                 ". Barriers: " + game.getPlayerInformation(playerPosition).getBarriers() + "\n");

@@ -1,34 +1,50 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork.console;
 
 
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Player;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.QuoridorGame;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.PlayerPosition;
+
+import java.util.Scanner;
 
 public class ConsoleGame {
 
     private static QuoridorGame game = new QuoridorGame(2);
     private static ConsoleDrawer drawer = new ConsoleDrawer(game);
+    private static CommandReader reader = new CommandReader();
 
     public static void main(String[] args) {
 
-        drawer.drawPlayerInformation(PlayerPosition.TOP);
-        drawer.drawField();
-        drawer.drawPlayerInformation(PlayerPosition.BOTTOM);
-        drawer.drawTurn();
-        drawer.drawHelp();
-        
-        try {
-            game.placeBarrier(4, 3, BarrierPosition.VERTICAL);
-        } catch (Exception e) {
-            System.out.println("я не хочу это ловить, потом будет хорошо");
-        }
+        ConsoleGame consoleGame = new ConsoleGame();
+        consoleGame.launch();
 
-        System.out.println();
-        drawer.drawPlayerInformation(PlayerPosition.TOP);
-        drawer.drawField();
-        drawer.drawPlayerInformation(PlayerPosition.BOTTOM);
-        drawer.drawTurn();
+    }
+
+    public void launch() {
+
+        Scanner in = new Scanner(System.in);
+        while (!game.isOver()) {
+
+            drawer.drawPlayerInformation(Player.TOP);
+            drawer.drawField();
+            drawer.drawPlayerInformation(Player.BOTTOM);
+            drawer.drawTurn();
+            try {
+                Command command = reader.read(in.nextLine());
+                switch (command.getCommandType()) {
+                    case BARRIER:
+                        game.placeBarrier(command.getCoordinates(), command.getBarrierPosition());
+                        break;
+                    case MARKER:
+                        game.moveMarker(command.getCoordinates());
+                        break;
+                    case HELP:
+                        drawer.drawHelp();
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
     }
 

@@ -2,6 +2,7 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.CellColor;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.FieldCoordinatesException;
 
 public class Field {
 
@@ -67,9 +68,13 @@ public class Field {
         this(9);
     }
 
-    public FieldItem getItem(int vertical, int horizontal) {
+    public FieldItem getItem(int vertical, int horizontal) throws FieldCoordinatesException {
 
-        return field[vertical][horizontal].getFieldItem();
+        try {
+            return field[vertical][horizontal].getFieldItem();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new FieldCoordinatesException("wrong coordinates " + vertical + " " + horizontal);
+        }
 
     }
 

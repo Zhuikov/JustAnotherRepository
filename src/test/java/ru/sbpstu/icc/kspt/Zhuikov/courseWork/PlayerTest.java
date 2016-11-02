@@ -6,10 +6,13 @@ import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ItemFieldException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.NoBarriersException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Marker;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class PlayerTest {
 
@@ -20,11 +23,12 @@ public class PlayerTest {
 
         List<Barrier> barriers = new LinkedList<Barrier>();
         barriers.add(new Barrier(field));
-        Player player = new Player(new Marker(field, 0, 8), barriers);
+        Player player = Player.TOP.createPlayer(new Marker(field, 0, 8), barriers);
 
-        player.placeBarrier(11, 11, BarrierPosition.VERTICAL);
+        player.placeBarrier(new Coordinates(11, 11), BarrierPosition.VERTICAL);
+        assertEquals(0, player.getInformation().getBarriers());
 
-        player.placeBarrier(11, 1, BarrierPosition.HORIZONTAL);
+        player.placeBarrier(new Coordinates(11, 1), BarrierPosition.HORIZONTAL);
     }
 
 }

@@ -38,6 +38,11 @@ public class Marker extends Item {
                 (horizontal - coordinates.getHorizontal()) * (horizontal - coordinates.getHorizontal())) > 2.1) {
             throw new TooLongDistanceException("you can move just nearby cells");
         }
+
+        if (field.getItem((this.coordinates.getVertical() + vertical) / 2,
+                (this.coordinates.getHorizontal() + horizontal) / 2) == FieldItem.BARRIER) {
+            throw new ImpossibleToSetException("impossible to jump over the barrier");
+        }
     }
 
     private void setMarker(int vertical, int horizontal) {

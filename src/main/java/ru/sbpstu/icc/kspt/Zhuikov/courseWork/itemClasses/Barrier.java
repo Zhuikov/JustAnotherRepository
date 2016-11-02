@@ -22,13 +22,18 @@ public class Barrier extends Item {
         this.field = field;
     }
 
-    public void toField(int vertical, int horizontal, BarrierPosition position) throws ItemFieldException {
+    public void placeBarrier(int vertical, int horizontal, BarrierPosition position) throws ItemFieldException {
 
         checkPlace(vertical, horizontal, position);
         setBarrier(vertical, horizontal, position);
     }
 
     private boolean checkPlace(int vertical, int horizontal, BarrierPosition position) throws ItemFieldException {
+
+        if (vertical == field.getRealSize() || vertical == 0 ||
+                horizontal == field.getRealSize() || horizontal == 0) {
+            throw new ImpossibleToSetException("impossible to place barrier here: need more space");
+        }
 
         if (position == BarrierPosition.VERTICAL) {                      //todo что-то сделать
             for (int i = vertical - length + 1; i <= vertical + length - 1; i++) {

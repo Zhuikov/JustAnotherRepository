@@ -1,7 +1,6 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.PlayerPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ItemFieldException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.NoBarriersException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
@@ -10,19 +9,26 @@ import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Marker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class QuoridorGame {
 
     private static final int barriersNumber = 10;
     private static Field field = new Field();
-    private short currentPlayer = 0;                    // todo эту штуку сделать playerPosition
+    private short currentPlayer = 0;
     private List<Player> players = new ArrayList<>();
+//    private Map<Integer, Player> playerMap = new TreeMap<>();
 
     public QuoridorGame(int numberOfPlayers) {
 
         if (numberOfPlayers == 2) {
-            players.add(addPlayer(0, (field.getRealSize() - 1) / 2));                         // players[0] - TOP
-            players.add(addPlayer(field.getRealSize() - 1, (field.getRealSize() - 1) / 2));   // players[1] - BOTTOM
+//            playerMap.put(0, addPlayer(Player.TOP, 0, (field.getRealSize() - 1) / 2));
+//            playerMap.put(1, addPlayer(Player.BOTTOM, field.getRealSize() - 1, (field.getRealSize() - 1) / 2));
+            players.add(addPlayer(Player.TOP, new Coordinates(0, (field.getRealSize() - 1) / 2)));
+            players.add(addPlayer(Player.BOTTOM, new Coordinates(field.getRealSize() - 1, (field.getRealSize() - 1) / 2)));
+//            players.add(addPlayer(0, (field.getRealSize() - 1) / 2));                         // players[0] - TOP
+//            players.add(addPlayer(field.getRealSize() - 1, (field.getRealSize() - 1) / 2));   // players[1] - BOTTOM
         }
 
         if (numberOfPlayers != 2) {
@@ -33,11 +39,12 @@ public class QuoridorGame {
 //            players.add(addPlayer((field.getRealSize() - 1) / 2, field.getRealSize() - 1)); // players[3] - RIGHT
         }
 
+
     }
 
-    public boolean moveMarker(int vertical, int horizontal) throws ItemFieldException {
+    public boolean moveMarker(Coordinates coordinates) throws ItemFieldException {
 
-        players.get(currentPlayer).moveMarker(vertical, horizontal);
+        players.get(currentPlayer).moveMarker(coordinates);
         if (++currentPlayer == players.size()) {
             currentPlayer = 0;
         }
@@ -45,10 +52,10 @@ public class QuoridorGame {
         return true;
     }
 
-    public boolean placeBarrier(int vertical, int horizontal, BarrierPosition position)
+    public boolean placeBarrier(Coordinates coordinates, BarrierPosition position)
             throws NoBarriersException, ItemFieldException {
 
-        players.get(currentPlayer).placeBarrier(vertical, horizontal, position);
+        players.get(currentPlayer).placeBarrier(coordinates, position);
         if (++currentPlayer == players.size()) {
             currentPlayer = 0;
         }
@@ -56,40 +63,46 @@ public class QuoridorGame {
         return true;
     }
 
-    public PlayerPosition getCurrentPlayer() {
+    public Player getCurrentPlayer() {
 
         switch (currentPlayer) {
-            case 0: return PlayerPosition.TOP;
-            case 1: return PlayerPosition.BOTTOM;
-            case 2: return PlayerPosition.LEFT;         // todo а если их нет, то будет nullptr
-            case 3: return PlayerPosition.RIGHT;
+            case 0: return Player.TOP;
+            case 1: return Player.BOTTOM;
+            case 2: return Player.LEFT;
+            case 3: return Player.RIGHT;
         }
 
         throw new AssertionError("counter currentPlayer broke");
     }
 
-    public PlayerInformation getPlayerInformation(PlayerPosition playerPosition) {
+    public PlayerInformation getPlayerInformation(Player player) {
 
-        switch (playerPosition) {
+        switch (player) {
             case TOP:    return players.get(0).getInformation();
             case BOTTOM: return players.get(1).getInformation();
             case LEFT:   return players.get(2).getInformation();
             case RIGHT:  return players.get(3).getInformation();
         }
 
-        throw new AssertionError("argument playerPosition broke");
+        throw new AssertionError("argument Player broke");
+    }
+
+    public boolean isOver() {
+
+        return ((players.get(0).getInformation().getCoordinates().getVertical() == 16) ||
+                (players.get(1).getInformation().getCoordinates().getVertical() == 0));
     }
 
     public Field getField() { return field;  }  // todo надо тут нормально сделать
 
-    private Player addPlayer(int markerVertical, int markerHorizontal) {
+    private Player addPlayer(Player player, Coordinates coordinates) {
 
         List<Barrier> barriers = new ArrayList<Barrier>();
         for (int i = 0; i < barriersNumber; i++) {
             barriers.add(new Barrier(field));
         }
 
-        return new Player(new Marker(field, markerVertical, markerHorizontal), barriers);
+        return player.createPlayer(new Marker(field, coordinates.getVertical(), coordinates.getHorizontal()), barriers);
     }
 
 }
