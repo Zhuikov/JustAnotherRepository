@@ -22,6 +22,12 @@ public class Marker extends Item {
 
     private void checkPlace(int vertical, int horizontal) throws ItemFieldException {
 
+        try {
+            field.getItem(vertical, horizontal);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new FieldCoordinatesException("impossible to place marker on " + vertical + " " + horizontal);
+        }
+
         if (coordinates.equals(new Coordinates(vertical, horizontal))) {
             throw new SetToSameCellException("impossible to move to the same cell");
         }

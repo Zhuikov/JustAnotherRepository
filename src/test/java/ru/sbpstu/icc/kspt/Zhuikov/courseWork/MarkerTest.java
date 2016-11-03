@@ -2,7 +2,9 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 
 import org.junit.Test;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.*;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Marker;
 
@@ -32,7 +34,7 @@ public class MarkerTest {
 
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = FieldCoordinatesException.class)
     public void testMovingOutOfBounds() throws ItemFieldException {
 
         Marker marker = new Marker(field, 0, 8);
@@ -72,6 +74,16 @@ public class MarkerTest {
         Marker marker = new Marker(field, 0, 8);
         marker.moveTo(0, 8);
 
+    }
+
+    @Test(expected = ImpossibleToSetException.class)
+    public void testJumpOverBarrier() throws ItemFieldException {
+
+        Marker marker = new Marker(field, 0, 8);
+        Barrier barrier = new Barrier(field);
+        barrier.placeBarrier(1, 8, BarrierPosition.HORIZONTAL);
+
+        marker.moveTo(2, 8);
     }
 
 }
