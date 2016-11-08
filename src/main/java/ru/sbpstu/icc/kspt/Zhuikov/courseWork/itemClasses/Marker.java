@@ -16,7 +16,7 @@ public class Marker extends Item {
 
     public void moveTo(int vertical_, int horizontal_) throws ItemFieldException {
 
-        checkPlace(vertical_, horizontal_);
+        checkPlace(vertical_, horizontal_); // todo ход через фишку
         setMarker(vertical_, horizontal_);
     }
 
