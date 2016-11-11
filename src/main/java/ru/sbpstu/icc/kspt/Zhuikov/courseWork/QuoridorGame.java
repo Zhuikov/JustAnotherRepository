@@ -56,12 +56,10 @@ public class QuoridorGame {
             throws NoBarriersException, ItemFieldException {
 
         players.get(currentPlayer).placeBarrier(coordinates, position); // todo блок фишки:
-        /*
-            left-up-checkpoint...
-         */
         if (++currentPlayer == players.size()) {
             currentPlayer = 0;
         }
+
 
         return true;
     }

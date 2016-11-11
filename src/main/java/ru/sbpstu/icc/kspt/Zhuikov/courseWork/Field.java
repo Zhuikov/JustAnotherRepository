@@ -3,6 +3,12 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.CellColor;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.FieldCoordinatesException;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class Field {
 
@@ -84,6 +90,57 @@ public class Field {
 
         field[vertical][horizontal].setFieldItem(item);
 
+    }
+
+    public boolean foo(Coordinates marker, int rowNumber) {
+
+        boolean used[][] = new boolean[realSize][realSize]; // todo: used[i][j] = false ?
+        Queue<Coordinates> queue = new LinkedList<>();
+
+        for (int i = 0; i < realSize; i+=2) {     // до любой из клеток строки
+
+            if (!used[rowNumber][i]) {
+                queue.add(new Coordinates(rowNumber, i));
+
+                while (!queue.isEmpty()) {
+
+                    if (queue.element().equals(marker)) {
+                        return true;
+                    }
+
+                    for (Coordinates neighbour : getNeighbours(queue.element())) {
+                        try {
+                            if (!used[neighbour.getVertical()][neighbour.getHorizontal()] &&
+                                    getItem((queue.element().getVertical() + neighbour.getVertical()) / 2,
+                                            (queue.element().getHorizontal() + neighbour.getHorizontal()) / 2) != FieldItem.BARRIER &&
+                                    !queue.contains(new Coordinates(neighbour.getVertical(), neighbour.getHorizontal()))) {
+                                queue.add(neighbour);
+                             //   System.out.print(new Coordinates(neighbour.getVertical(), neighbour.getHorizontal()) + " ");
+                            }
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                        }
+                    }
+
+                    System.out.println();
+                    used[queue.element().getVertical()][queue.element().getHorizontal()] = true;
+                    queue.remove();
+                }
+            }
+        }
+
+        return used[marker.getVertical()][marker.getHorizontal()];
+    }
+
+    private List<Coordinates> getNeighbours(Coordinates init) {
+
+        List<Coordinates> neighbours = new ArrayList<>();
+
+        neighbours.add(new Coordinates(init.getVertical() - 2, init.getHorizontal()));
+        neighbours.add(new Coordinates(init.getVertical(), init.getHorizontal() - 2));
+        neighbours.add(new Coordinates(init.getVertical() + 2, init.getHorizontal()));
+        neighbours.add(new Coordinates(init.getVertical(), init.getHorizontal() + 2));
+
+        return neighbours;
     }
 
 }
