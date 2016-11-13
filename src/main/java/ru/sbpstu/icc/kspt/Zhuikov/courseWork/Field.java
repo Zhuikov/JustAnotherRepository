@@ -26,24 +26,13 @@ public class Field {
         private CellColor color;
         private FieldItem fieldItem;
 
-        CellColor getColor() {
-            return color;
-        }
-
-        FieldItem getFieldItem() {
-            return fieldItem;
-        }
-
-        void setColor(CellColor color) {
-            this.color = color;
-        }
-
         void setFieldItem(FieldItem fieldItem) {
             this.fieldItem = fieldItem;
         }
 
-        Cell(FieldItem fieldItem) {
+        Cell(FieldItem fieldItem, CellColor color) {
             this.fieldItem = fieldItem;
+            this.color = color;
         }
 
     }
@@ -59,11 +48,10 @@ public class Field {
         field = new Cell[realSize][realSize];
         for (int i = 0; i < realSize; i++) {
             for (int j = 0; j < realSize; j++) {
-                field[i][j] = new Cell(FieldItem.EMPTY);
                 if ((i % 2 == 0) && (j % 2 == 0)) {
-                    field[i][j].setColor(CellColor.BLACK);
+                    field[i][j] = new Cell(FieldItem.EMPTY, CellColor.BLACK);
                 } else {
-                    field[i][j].setColor(CellColor.WHITE);
+                    field[i][j] = new Cell(FieldItem.EMPTY, CellColor.WHITE);
                 }
             }
         }
@@ -76,13 +64,13 @@ public class Field {
 
     public FieldItem getItem(int vertical, int horizontal) {
 
-        return field[vertical][horizontal].getFieldItem();
+        return field[vertical][horizontal].fieldItem;
 
     }
 
     public CellColor getColor(int vertical, int horizontal) {
 
-        return field[vertical][horizontal].getColor();
+        return field[vertical][horizontal].color;
 
     }
 
@@ -92,7 +80,7 @@ public class Field {
 
     }
 
-    public boolean foo(Coordinates marker, int rowNumber) {
+    public boolean foo(Coordinates marker, int rowNumber) { // todo: rename
 
         boolean used[][] = new boolean[realSize][realSize]; // todo: used[i][j] = false ?
         Queue<Coordinates> queue = new LinkedList<>();
