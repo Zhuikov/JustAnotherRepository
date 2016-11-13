@@ -30,7 +30,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testPathBetweenCells2() { // "перегородка"
+    public void testPathBetweenCells2() { // "перегородка" по вертикали
 
         Field field = new Field(9);
         for (int i = 0; i <= field.getRealSize() - 1; i+=2) {
@@ -42,7 +42,19 @@ public class FieldTest {
     }
 
     @Test
-    public void testPathBetweenCells3() { // закрытая фишка
+    public void testPathBetweenCells3() { // "перегородка" по горизонтали
+
+        Field field = new Field(9);
+        for (int i = 0; i <= field.getRealSize() - 1; i+=2) {
+            field.setItem(FieldItem.BARRIER, 7, i);
+        }
+
+        assertEquals(true,  field.foo(new Coordinates(0, 4), 2));
+        assertEquals(false, field.foo(new Coordinates(0, 4), 10));
+    }
+
+    @Test
+    public void testPathBetweenCells4() { // закрытая фишка
 
         Field field = new Field(9);
         for (int i = 0; i <= field.getRealSize() - 1; i+=2) {
@@ -50,7 +62,7 @@ public class FieldTest {
             field.setItem(FieldItem.BARRIER, 7, i);
         }
 
-        assertEquals(true, field.foo(new Coordinates(0, 8), 6));
+        assertEquals(true,  field.foo(new Coordinates(0, 8), 6));
         assertEquals(false, field.foo(new Coordinates(0, 8), 16));
     }
 

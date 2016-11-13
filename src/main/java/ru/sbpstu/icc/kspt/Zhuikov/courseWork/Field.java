@@ -97,38 +97,35 @@ public class Field {
         boolean used[][] = new boolean[realSize][realSize]; // todo: used[i][j] = false ?
         Queue<Coordinates> queue = new LinkedList<>();
 
-        for (int i = 0; i < realSize; i+=2) {     // до любой из клеток строки
+        queue.add(marker);
 
-            if (!used[rowNumber][i]) {
-                queue.add(new Coordinates(rowNumber, i));
+        while (!queue.isEmpty()) {
 
-                while (!queue.isEmpty()) {
+//          for (Coordinates coordinates : queue) {
+//              System.out.print(coordinates + " ");
+//          }
+//          System.out.println();
 
-                    if (queue.element().equals(marker)) {
-                        return true;
-                    }
-
-                    for (Coordinates neighbour : getNeighbours(queue.element())) {
-                        try {
-                            if (!used[neighbour.getVertical()][neighbour.getHorizontal()] &&
-                                    getItem((queue.element().getVertical() + neighbour.getVertical()) / 2,
-                                            (queue.element().getHorizontal() + neighbour.getHorizontal()) / 2) != FieldItem.BARRIER &&
-                                    !queue.contains(new Coordinates(neighbour.getVertical(), neighbour.getHorizontal()))) {
-                                queue.add(neighbour);
-                             //   System.out.print(new Coordinates(neighbour.getVertical(), neighbour.getHorizontal()) + " ");
-                            }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                        }
-                    }
-
-                    System.out.println();
-                    used[queue.element().getVertical()][queue.element().getHorizontal()] = true;
-                    queue.remove();
-                }
+            if (queue.element().getVertical() == rowNumber) {
+                return true;
             }
+
+            for (Coordinates neighbour : getNeighbours(queue.element())) {
+                try {
+                    if (!used[neighbour.getVertical()][neighbour.getHorizontal()] &&
+                            getItem((queue.element().getVertical() + neighbour.getVertical()) / 2,
+                                    (queue.element().getHorizontal() + neighbour.getHorizontal()) / 2) != FieldItem.BARRIER &&
+                            !queue.contains(new Coordinates(neighbour.getVertical(), neighbour.getHorizontal()))) {
+                        queue.add(neighbour);
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) { }
+            }
+
+            used[queue.element().getVertical()][queue.element().getHorizontal()] = true;
+            queue.remove();
         }
 
-        return used[marker.getVertical()][marker.getHorizontal()];
+        return false;
     }
 
     private List<Coordinates> getNeighbours(Coordinates init) {
