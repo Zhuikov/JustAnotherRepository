@@ -2,14 +2,13 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 import org.junit.Test;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.ItemType;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.CellIsNotEmptyException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.FieldCoordinatesException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ImpossibleToSetException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.ItemFieldException;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Barrier;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Item;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,9 +21,9 @@ public class BarrierTest {
 
         Barrier barrier = new Barrier(field);
         barrier.placeBarrier(5, 3, BarrierPosition.VERTICAL);
-        assertEquals(field.getItem(5, 3), FieldItem.BARRIER);
-        assertEquals(field.getItem(4, 3), FieldItem.BARRIER);
-        assertEquals(field.getItem(6, 3), FieldItem.BARRIER);
+        assertEquals(field.getItem(5, 3).getType(), ItemType.BARRIER);
+        assertEquals(field.getItem(4, 3).getType(), ItemType.BARRIER);
+        assertEquals(field.getItem(6, 3).getType(), ItemType.BARRIER);
     }
 
     @Test
@@ -32,9 +31,9 @@ public class BarrierTest {
 
         Barrier barrier = new Barrier(field);
         barrier.placeBarrier(13, 11, BarrierPosition.HORIZONTAL);
-        assertEquals(field.getItem(13, 10), FieldItem.BARRIER);
-        assertEquals(field.getItem(13, 11), FieldItem.BARRIER);
-        assertEquals(field.getItem(13, 12), FieldItem.BARRIER);
+        assertEquals(field.getItem(13, 10).getType(), ItemType.BARRIER);
+        assertEquals(field.getItem(13, 11).getType(), ItemType.BARRIER);
+        assertEquals(field.getItem(13, 12).getType(), ItemType.BARRIER);
     }
 
     @Test

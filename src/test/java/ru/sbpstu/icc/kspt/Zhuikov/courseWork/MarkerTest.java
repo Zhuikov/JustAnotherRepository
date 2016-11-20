@@ -1,6 +1,5 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
-
 import org.junit.Test;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.BarrierPosition;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.*;

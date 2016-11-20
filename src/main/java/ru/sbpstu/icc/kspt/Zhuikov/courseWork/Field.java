@@ -1,9 +1,10 @@
 package ru.sbpstu.icc.kspt.Zhuikov.courseWork;
 
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.CellColor;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.FieldCoordinatesException;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.ItemType;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Coordinates;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Empty;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses.Item;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,14 +25,14 @@ public class Field {
     private class Cell {
 
         private CellColor color;
-        private FieldItem fieldItem;
+        private Item item;
 
-        void setFieldItem(FieldItem fieldItem) {
-            this.fieldItem = fieldItem;
+        void setItem(Item item) {
+            this.item = item;
         }
 
-        Cell(FieldItem fieldItem, CellColor color) {
-            this.fieldItem = fieldItem;
+        Cell(Item item, CellColor color) {
+            this.item = item;
             this.color = color;
         }
 
@@ -49,9 +50,9 @@ public class Field {
         for (int i = 0; i < realSize; i++) {
             for (int j = 0; j < realSize; j++) {
                 if ((i % 2 == 0) && (j % 2 == 0)) {
-                    field[i][j] = new Cell(FieldItem.EMPTY, CellColor.BLACK);
+                    field[i][j] = new Cell(new Empty(i, j), CellColor.BLACK);
                 } else {
-                    field[i][j] = new Cell(FieldItem.EMPTY, CellColor.WHITE);
+                    field[i][j] = new Cell(new Empty(i, j), CellColor.WHITE);
                 }
             }
         }
@@ -62,9 +63,9 @@ public class Field {
         this(9);
     }
 
-    public FieldItem getItem(int vertical, int horizontal) {
+    public Item getItem(int vertical, int horizontal) {
 
-        return field[vertical][horizontal].fieldItem;
+        return field[vertical][horizontal].item;
 
     }
 
@@ -74,10 +75,9 @@ public class Field {
 
     }
 
-    public void setItem(FieldItem item, int vertical, int horizontal) {
+    public void setItem(Item item, int vertical, int horizontal) {
 
-        field[vertical][horizontal].setFieldItem(item);
-
+        field[vertical][horizontal].setItem(item);
     }
 
     public boolean foo(Coordinates marker, int rowNumber) { // todo: rename
@@ -100,9 +100,9 @@ public class Field {
 
             for (Coordinates neighbour : getNeighbours(queue.element())) {
                 try {
-                    if (!used[neighbour.getVertical()][neighbour.getHorizontal()] &&
+                    if (!used[neighbour.getVertical()][neighbour.getHorizontal()] &&   // todo: шлифануть бы тут
                             getItem((queue.element().getVertical() + neighbour.getVertical()) / 2,
-                                    (queue.element().getHorizontal() + neighbour.getHorizontal()) / 2) != FieldItem.BARRIER &&
+                                    (queue.element().getHorizontal() + neighbour.getHorizontal()) / 2).getType() != ItemType.BARRIER &&
                             !queue.contains(new Coordinates(neighbour.getVertical(), neighbour.getHorizontal()))) {
                         queue.add(neighbour);
                     }

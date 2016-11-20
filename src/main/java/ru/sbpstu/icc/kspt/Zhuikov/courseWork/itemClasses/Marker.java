@@ -2,16 +2,17 @@ package ru.sbpstu.icc.kspt.Zhuikov.courseWork.itemClasses;
 
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.Field;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.CellColor;
-import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.FieldItem;
+import ru.sbpstu.icc.kspt.Zhuikov.courseWork.enums.ItemType;
 import ru.sbpstu.icc.kspt.Zhuikov.courseWork.exceptions.*;
 
 public class Marker extends Item {
 
-    public Marker(Field field, int vertical_, int horizontal_) {
-        field.setItem(FieldItem.MARKER, vertical_, horizontal_);
+    public Marker(Field field, int vertical, int horizontal) {
+        field.setItem(this, vertical, horizontal);
         this.field = field;
-        coordinates.setVertical(vertical_);
-        coordinates.setHorizontal(horizontal_);
+        type = ItemType.MARKER;
+        coordinates.setVertical(vertical);
+        coordinates.setHorizontal(horizontal);
     }
 
     public void moveTo(int vertical_, int horizontal_) throws ItemFieldException {
@@ -36,7 +37,7 @@ public class Marker extends Item {
             throw new ImpossibleToSetException("impossible to set marker on white cell");
         }
 
-        if (field.getItem(vertical, horizontal) != FieldItem.EMPTY) {
+        if (field.getItem(vertical, horizontal).getType() != ItemType.EMPTY) {
             throw new CellIsNotEmptyException("cell " + vertical + horizontal + " is not empty");
         }
 
@@ -46,15 +47,16 @@ public class Marker extends Item {
         }
 
         if (field.getItem((this.coordinates.getVertical() + vertical) / 2,
-                (this.coordinates.getHorizontal() + horizontal) / 2) == FieldItem.BARRIER) {
+                (this.coordinates.getHorizontal() + horizontal) / 2).getType() == ItemType.BARRIER) {
             throw new ImpossibleToSetException("impossible to jump over the barrier");
         }
     }
 
     private void setMarker(int vertical, int horizontal) {
 
-        field.setItem(FieldItem.EMPTY, coordinates.getVertical(), coordinates.getHorizontal());
-        field.setItem(FieldItem.MARKER, vertical, horizontal);
+        field.setItem(new Empty(coordinates.getVertical(), coordinates.getHorizontal()),
+                coordinates.getVertical(), coordinates.getHorizontal()); // todo: придумать field.setField(Item);
+        field.setItem(this, vertical, horizontal);
         coordinates.setVertical(vertical);
         coordinates.setHorizontal(horizontal);
     }

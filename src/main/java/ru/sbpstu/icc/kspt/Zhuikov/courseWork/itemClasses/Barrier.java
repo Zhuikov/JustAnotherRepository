@@ -21,6 +21,7 @@ public class Barrier extends Item {
 
     public Barrier(Field field) {
         this.field = field;
+        type = ItemType.BARRIER;
     }
 
     public void placeBarrier(int vertical, int horizontal, BarrierPosition position) throws ItemFieldException {
@@ -39,8 +40,8 @@ public class Barrier extends Item {
         if (position == BarrierPosition.VERTICAL) {                      //todo что-то сделать
             for (int i = vertical - length + 1; i <= vertical + length - 1; i++) {
                 try {
-                    if (field.getItem(i, horizontal) != FieldItem.EMPTY) {
-                        throw new CellIsNotEmptyException("impossible to place barrier on occupied field " +
+                    if (field.getItem(i, horizontal).getType() != ItemType.EMPTY) {
+                        throw new CellIsNotEmptyException("impossible to place barrier on occupied cell " +
                                 vertical + " " + horizontal);
                     }
                     if (field.getColor(i, horizontal) == CellColor.BLACK) {
@@ -54,7 +55,7 @@ public class Barrier extends Item {
         } else if (position == BarrierPosition.HORIZONTAL) {
             for (int i = horizontal - length + 1; i <= horizontal + length - 1; i++) {
                 try {
-                    if (field.getItem(vertical, i) != FieldItem.EMPTY) {
+                    if (field.getItem(vertical, i).getType() != ItemType.EMPTY) {
                         throw new CellIsNotEmptyException("impossible to place barrier on field " +
                                 vertical + " " + horizontal);
                     }
@@ -74,13 +75,13 @@ public class Barrier extends Item {
 
         if (position == BarrierPosition.VERTICAL) {
             for (int i = vertical - length + 1; i <= vertical + length - 1; i++) {
-                field.setItem(FieldItem.BARRIER, i, horizontal);
+                field.setItem(this, i, horizontal);
                 allCoordinates.add(new Coordinates(i, horizontal));
             }
 
         } else if (position == BarrierPosition.HORIZONTAL) {
             for (int i = horizontal - length + 1; i <= horizontal + length - 1; i++) {
-                field.setItem(FieldItem.BARRIER, vertical, i);
+                field.setItem(this, vertical, i);
                 allCoordinates.add(new Coordinates(vertical, i));
             }
         }

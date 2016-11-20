@@ -17,7 +17,7 @@ public class ConsoleDrawer {
 
         for (int i = 0; i < game.getField().getRealSize(); i++) {
             for (int j = 0; j < game.getField().getRealSize(); j++) {
-                switch (game.getField().getItem(i, j)) {
+                switch (game.getField().getItem(i, j).getType()) {
                     case EMPTY:
                         if (game.getField().getColor(i, j) == CellColor.BLACK) {
                             System.out.print("O");
